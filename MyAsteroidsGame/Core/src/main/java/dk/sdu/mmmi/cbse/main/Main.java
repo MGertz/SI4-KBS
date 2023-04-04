@@ -8,11 +8,11 @@ public class Main {
 	public static void main(String[] args) {
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "Asteroids";
+		cfg.title = "MyAsteroidsGame";
 		cfg.width = 500;
 		cfg.height = 400;
 		cfg.useGL30 = false;
-		cfg.resizable = false;
+		cfg.resizable = true;
 		
 		new LwjglApplication(new Game(), cfg);
 		
