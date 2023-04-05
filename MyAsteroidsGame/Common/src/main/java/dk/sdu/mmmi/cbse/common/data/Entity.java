@@ -15,6 +15,9 @@ public class Entity implements Serializable {
     private float radius;
     private Map<Class, EntityPart> parts;
 
+    // Used to store colors for an entity
+    private int[] colors = new int[4];
+
     // Used to store the dists that each point in a asteroid has in the radius
     private float[] dists;
 
@@ -68,5 +71,13 @@ public class Entity implements Serializable {
 
     public float[] getDists() {
         return this.dists;
+    }
+
+    public int[] getColors() {
+        return this.colors;
+    }
+
+    public void setColors(int[] colors) {
+        this.colors = colors;
     }
 }
