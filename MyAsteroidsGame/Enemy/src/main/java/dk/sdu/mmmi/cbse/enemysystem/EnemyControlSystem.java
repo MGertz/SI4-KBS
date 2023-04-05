@@ -32,7 +32,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
             }
 
 
-            if (Math.random() < 0.2) {
+            if (Math.random() < 0.4) {
                 if (direction == 1) {
                     movingPart.setRight(true);
                 } else {
