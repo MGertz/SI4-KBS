@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -65,11 +66,19 @@ public class AsteroidPlugin implements IGamePluginService {
             maxSpeed = MathUtils.random(70,100);
         }
 
+        int[] colors = new int[4];
+        colors[0] = 1;
+        colors[1] = 1;
+        colors[2] = 1;
+        colors[3] = 1;
+        asteroid.setColors(colors);
+
         asteroid.setShapeX(new float[this.numPoints]);
         asteroid.setShapeY(new float[this.numPoints]);
 
         asteroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         asteroid.add(new PositionPart(x, y, radians));
+        asteroid.add(new LifePart(3,0));
 
         float[] dists = new float[this.numPoints];
         for (int i = 0; i < this.numPoints; i++) {

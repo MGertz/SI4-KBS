@@ -31,8 +31,16 @@ public class PlayerPlugin implements IGamePluginService {
         float x = gameData.getDisplayWidth() / 2;
         float y = gameData.getDisplayHeight() / 2;
         float radians = 3.1415f / 2;
-        
+
+        int[] colors = new int[4];
+        colors[0] = 1;
+        colors[1] = 1;
+        colors[2] = 0;
+        colors[3] = 1;
+
         Entity playerShip = new Player();
+        playerShip.setColors(colors);
+
         playerShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         playerShip.add(new PositionPart(x, y, radians));
         
