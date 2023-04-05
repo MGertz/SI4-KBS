@@ -37,7 +37,6 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         float y = positionPart.getY();
 
         float radians = positionPart.getRadians();
-        System.out.println("Radians: "+radians);
 
         float angle = 0;
         float radius = entity.getRadius();
@@ -48,13 +47,8 @@ public class AsteroidControlSystem implements IEntityProcessingService {
             shapex[i] = x + MathUtils.cos(angle + radians) * dists[i];
             shapey[i] = y + MathUtils.sin(angle + radians) * dists[i];
 
-            angle += 2 * 3.1415f / shapex.length;
-
-            System.out.println("X"+i+": "+shapex[i]);
-            System.out.println("Y"+i+": "+shapey[i]);
-            System.out.println("Angle: "+angle);
+            angle += MathUtils.PI2 / shapex.length;
         }
-        System.out.println("--------------------");
 
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
