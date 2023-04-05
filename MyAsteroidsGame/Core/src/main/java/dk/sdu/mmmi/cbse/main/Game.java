@@ -78,7 +78,6 @@ public class Game implements ApplicationListener {
             entityProcessors.add(asteroidProcess);
         }
 
-
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : entityPlugins) {
             iGamePlugin.start(gameData, world);
@@ -113,7 +112,8 @@ public class Game implements ApplicationListener {
     private void draw() {
         for (Entity entity : world.getEntities()) {
 
-            sr.setColor(1, 1, 1, 1);
+            int[] colors = entity.getColors();
+            sr.setColor(colors[0],colors[1],colors[2],colors[3]);
 
             sr.begin(ShapeRenderer.ShapeType.Line);
 
