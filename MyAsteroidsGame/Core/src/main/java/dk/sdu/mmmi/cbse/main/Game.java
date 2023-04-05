@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import dk.sdu.mmmi.cbse.asteroidsystem.AsteroidControlSystem;
+import dk.sdu.mmmi.cbse.asteroidsystem.AsteroidPlugin;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -19,8 +21,11 @@ import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game
-        implements ApplicationListener {
+import static dk.sdu.mmmi.cbse.asteroidsystem.AsteroidPlugin.SMALL;
+import static dk.sdu.mmmi.cbse.asteroidsystem.AsteroidPlugin.MEDIUM;
+import static dk.sdu.mmmi.cbse.asteroidsystem.AsteroidPlugin.LARGE;
+
+public class Game implements ApplicationListener {
 
     private static OrthographicCamera cam;
     private ShapeRenderer sr;
@@ -62,6 +67,16 @@ public class Game
         IEntityProcessingService enemyProcess = new EnemyControlSystem();
         entityPlugins.add(enemyPlugin);
         entityProcessors.add(enemyProcess);
+
+        /**
+         * Asteroid Plugin
+         */
+        for (int i = 0; i < 4; i++) {
+            IGamePluginService asteroidPlugin = new AsteroidPlugin(LARGE);
+            IEntityProcessingService asteroidProcess = new AsteroidControlSystem();
+            entityPlugins.add(asteroidPlugin);
+            entityProcessors.add(asteroidProcess);
+        }
 
 
         // Lookup all Game Plugins using ServiceLoader
