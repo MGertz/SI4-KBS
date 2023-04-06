@@ -31,10 +31,10 @@ public class Game implements ApplicationListener {
     private ShapeRenderer sr;
 
     private final GameData gameData = new GameData();
-    private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
-    private List<IPostEntityProcessingService> entityPostProcessors = new ArrayList<>();
-    private List<IGamePluginService> entityPlugins = new ArrayList<>();
-    private World world = new World();
+    private final List<IEntityProcessingService> entityProcessors = new ArrayList<>();
+    private final List<IPostEntityProcessingService> entityPostProcessors = new ArrayList<>();
+    private final List<IGamePluginService> entityPlugins = new ArrayList<>();
+    private final World world = new World();
 
     @Override
     public void create() {
