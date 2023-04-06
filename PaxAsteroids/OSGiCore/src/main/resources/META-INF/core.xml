@@ -3,14 +3,14 @@
     <implementation class="dk.sdu.mmmi.cbse.Game"/>
 
     <reference bind="addPostEntityProcessingService" cardinality="0..n"
-               interface="services.dk.sdu.student.miger20.common.IPostEntityProcessingService"
+               interface="dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService"
                name="IPostEntityProcessingService" policy="dynamic" unbind="removePostEntityProcessingService"/>
 
     <reference bind="addEntityProcessingService" cardinality="0..n"
-               interface="services.dk.sdu.student.miger20.common.IEntityProcessingService"
+               interface="dk.sdu.mmmi.cbse.common.services.IEntityProcessingService"
                name="IEntityProcessingService" policy="dynamic" unbind="removeEntityProcessingService"/>
 
     <reference bind="addGamePluginService" cardinality="0..n"
-               interface="services.dk.sdu.student.miger20.common.IGamePluginService"
+               interface="dk.sdu.mmmi.cbse.common.services.IGamePluginService"
                name="IGamePluginService" policy="dynamic" unbind="removeGamePluginService"/>
 </scr:component>
