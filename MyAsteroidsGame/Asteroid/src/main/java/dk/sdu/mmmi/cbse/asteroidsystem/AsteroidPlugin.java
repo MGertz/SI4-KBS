@@ -51,17 +51,17 @@ public class AsteroidPlugin implements IGamePluginService {
 
         if (this.type == LARGE) {
             System.out.println("Large Generated");
-            asteroid.setRadius(25);
+            asteroid.setRadius(15);
             this.numPoints = 12;
             maxSpeed = MathUtils.random(20,30);
         } else if (this.type == MEDIUM) {
             System.out.println("Medium Generated");
-            asteroid.setRadius(15);
+            asteroid.setRadius(10);
             this.numPoints=10;
             maxSpeed = MathUtils.random(50,60);
         } else { // SMALL
             System.out.println("Small Generated");
-            asteroid.setRadius(10);
+            asteroid.setRadius(5);
             this.numPoints=8;
             maxSpeed = MathUtils.random(70,100);
         }
