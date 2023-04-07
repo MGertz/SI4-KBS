@@ -2,38 +2,35 @@ package dk.sdu.student.miger20.playersystem;
 
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
-import static dk.sdu.student.miger20.common.data.GameKeys.LEFT;
-import static dk.sdu.student.miger20.common.data.GameKeys.RIGHT;
-import static dk.sdu.student.miger20.common.data.GameKeys.UP;
+import dk.sdu.student.miger20.common.data.GameKeys;
 import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
 
-/**
- *
- * @author jcs
- */
 public class PlayerControlSystem implements IEntityProcessingService {
-
     @Override
     public void process(GameData gameData, World world) {
 
         for (Entity player : world.getEntities(Player.class)) {
-            PositionPart positionPart = player.getPart(PositionPart.class);
+
             MovingPart movingPart = player.getPart(MovingPart.class);
+            PositionPart positionPart = player.getPart(PositionPart.class);
             LifePart lifePart = player.getPart(LifePart.class);
 
-            movingPart.setLeft(gameData.getKeys().isDown(LEFT));
-            movingPart.setRight(gameData.getKeys().isDown(RIGHT));
-            movingPart.setUp(gameData.getKeys().isDown(UP));
-            
-            
+            movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT));
+            movingPart.setRight(gameData.getKeys().isDown(GameKeys.RIGHT));
+            movingPart.setUp(gameData.getKeys().isDown(GameKeys.UP));
+
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
             lifePart.process(gameData, player);
 
+            if (lifePart.isIsHit()) {
+                System.out.println("Player removed");
+                world.removeEntity(player);
+            }
 
             updateShape(player);
         }
