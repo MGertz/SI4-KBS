@@ -39,7 +39,7 @@ public class AsteroidPlugin implements IGamePluginService {
     }
 
     private Entity createAsteroid(GameData gameData) {
-        float deacceleration = 10;
+        float deceleration = 10;
         float acceleration = 100;
         float maxSpeed = 0;
         float rotationSpeed = 0;
@@ -76,9 +76,9 @@ public class AsteroidPlugin implements IGamePluginService {
         asteroid.setShapeX(new float[this.numPoints]);
         asteroid.setShapeY(new float[this.numPoints]);
 
-        asteroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
+        asteroid.add(new MovingPart(deceleration, acceleration, maxSpeed, rotationSpeed));
         asteroid.add(new PositionPart(x, y, radians));
-        asteroid.add(new LifePart(3,0));
+        asteroid.add(new LifePart(1,0));
 
         float[] dists = new float[this.numPoints];
         for (int i = 0; i < this.numPoints; i++) {
