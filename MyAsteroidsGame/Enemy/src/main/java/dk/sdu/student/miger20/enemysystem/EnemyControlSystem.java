@@ -3,6 +3,7 @@ package dk.sdu.student.miger20.enemysystem;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
+import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
@@ -18,6 +19,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
         for (Entity enemy : world.getEntities(Enemy.class)) {
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             MovingPart movingPart = enemy.getPart(MovingPart.class);
+            LifePart lifePart = enemy.getPart(LifePart.class);
 
             if (this.tickCounter == 30) {
                 this.tickCounter = 0;
@@ -48,6 +50,10 @@ public class EnemyControlSystem implements IEntityProcessingService {
             movingPart.setRight(false);
             movingPart.setUp(false);
 
+            if (lifePart.isIsHit()) {
+                System.out.println("Enemy removed");
+                world.removeEntity(enemy);
+            }
 
             updateShape(enemy);
 
