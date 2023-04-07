@@ -5,11 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import dk.sdu.student.miger20.bullet.BulletControlSystem;
+import dk.sdu.student.miger20.bullet.BulletPlugin;
 import dk.sdu.student.miger20.collision.CollisionDetector;
 import dk.sdu.student.miger20.asteroidsystem.AsteroidControlSystem;
 import dk.sdu.student.miger20.asteroidsystem.AsteroidPlugin;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
+import dk.sdu.student.miger20.common.data.GameKeys;
 import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
 import dk.sdu.student.miger20.common.services.IGamePluginService;
@@ -17,6 +20,7 @@ import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
 import dk.sdu.student.miger20.enemysystem.EnemyControlSystem;
 import dk.sdu.student.miger20.enemysystem.EnemyPlugin;
 import dk.sdu.student.miger20.managers.GameInputProcessor;
+import dk.sdu.student.miger20.playersystem.Player;
 import dk.sdu.student.miger20.playersystem.PlayerControlSystem;
 import dk.sdu.student.miger20.playersystem.PlayerPlugin;
 
@@ -56,6 +60,12 @@ public class Game implements ApplicationListener {
         IPostEntityProcessingService collisionProcess = new CollisionDetector();
         this.entityPostProcessors.add(collisionProcess);
 
+        /**
+         * Bullet ProcessingService
+         */
+        IEntityProcessingService bulletProcess = new BulletControlSystem();
+        this.entityProcessors.add(bulletProcess);
+
 
 
         /**
@@ -76,14 +86,22 @@ public class Game implements ApplicationListener {
         entityProcessors.add(enemyProcess);
 
         /**
+         * Asteroid ProcessingService
+         */
+        IEntityProcessingService asteroidProcess = new AsteroidControlSystem();
+        entityProcessors.add(asteroidProcess);
+
+
+        /**
          * Asteroid Plugin
          */
         for (int i = 0; i < 4; i++) {
             IGamePluginService asteroidPlugin = new AsteroidPlugin(LARGE);
-            IEntityProcessingService asteroidProcess = new AsteroidControlSystem();
             entityPlugins.add(asteroidPlugin);
-            entityProcessors.add(asteroidProcess);
         }
+
+
+
 
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : entityPlugins) {
@@ -102,6 +120,18 @@ public class Game implements ApplicationListener {
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
 
+        if (gameData.getKeys().isPressed(GameKeys.SPACE)) {
+            for (Entity entity : world.getEntities(Player.class)) {
+
+                /**
+                 * Bullet Plugin
+                 */
+                IGamePluginService bulletPlugin = new BulletPlugin(entity);
+                this.entityPlugins.add(bulletPlugin);
+                bulletPlugin.start(gameData, world);
+            }
+        }
+
         update();
 
         draw();
@@ -110,11 +140,12 @@ public class Game implements ApplicationListener {
     }
 
     private void update() {
-        // Update
+        // Update EntityProcessingService
         for (IEntityProcessingService entityProcessorService : entityProcessors) {
             entityProcessorService.process(gameData, world);
         }
 
+        // Update PostEntityProcessingService
         for (IPostEntityProcessingService postEntityProcessingService : entityPostProcessors) {
             postEntityProcessingService.process(gameData, world);
         }
