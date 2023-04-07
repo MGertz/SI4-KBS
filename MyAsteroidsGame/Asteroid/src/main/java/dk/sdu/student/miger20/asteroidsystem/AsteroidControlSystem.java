@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
+import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
@@ -15,13 +16,17 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         for (Entity asteroid : world.getEntities(Asteroid.class)) {
             PositionPart positionPart = asteroid.getPart(PositionPart.class);
             MovingPart movingPart = asteroid.getPart(MovingPart.class);
-
-
+            LifePart lifePart = asteroid.getPart(LifePart.class);
 
             movingPart.setUp(true);
 
             movingPart.process(gameData, asteroid);
             positionPart.process(gameData, asteroid);
+
+            if (lifePart.isIsHit()) {
+                System.out.println("Asteroid removed");
+                world.removeEntity(asteroid);
+            }
 
             updateShape(asteroid);
         }
