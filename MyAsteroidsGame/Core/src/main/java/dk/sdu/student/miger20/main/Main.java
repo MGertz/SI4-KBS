@@ -9,8 +9,8 @@ public class Main {
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "MyAsteroidsGame";
-		cfg.width = (1920/3);
-		cfg.height = (1080/3);
+		cfg.width = (1920/2);
+		cfg.height = (1080/2);
 		cfg.useGL30 = false;
 		cfg.resizable = true;
 		//cfg.fullscreen = true;
