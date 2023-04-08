@@ -17,6 +17,10 @@ public class AsteroidPlugin implements IGamePluginService {
     public static final int MEDIUM = 1;
     public static final int LARGE = 2;
 
+    // Start Positions
+    private float x = -1;
+    private float y = -1;
+
     private int numPoints; // Contains the number of points an asteroid exists of.
 
     private int type;
@@ -24,16 +28,24 @@ public class AsteroidPlugin implements IGamePluginService {
     private int life;
 
     public AsteroidPlugin() {
-        this(3);
+        this.life = 3;
     }
 
-    public AsteroidPlugin(int life) {
-        this.life = life;
-    }
+    public AsteroidPlugin(Entity asteroid) {
+        PositionPart positionPart = asteroid.getPart(PositionPart.class);
+        LifePart lifePart = asteroid.getPart(LifePart.class);
+        this.life = lifePart.getLife()-1;
 
+        this.x = positionPart.getX();
+        this.y = positionPart.getY();
+    }
 
     @Override
     public void start(GameData gameData, World world) {
+        if (this.x == -1 || this.y == -1) {
+            this.x = MathUtils.random((float)gameData.getDisplayWidth());
+            this.y = MathUtils.random((float)gameData.getDisplayHeight());
+        }
 
         // Add entities to the world
         this.asteroid = createAsteroid(gameData);
@@ -45,8 +57,6 @@ public class AsteroidPlugin implements IGamePluginService {
         float acceleration = 100;
         float maxSpeed = 0;
         float rotationSpeed = 0;
-        float x = MathUtils.random((float)gameData.getDisplayWidth());
-        float y = MathUtils.random((float)gameData.getDisplayHeight());
         float radians = MathUtils.random(MathUtils.PI2);
 
         Entity asteroid = new Asteroid();
@@ -79,7 +89,7 @@ public class AsteroidPlugin implements IGamePluginService {
         asteroid.setShapeY(new float[this.numPoints]);
 
         asteroid.add(new MovingPart(deceleration, acceleration, maxSpeed, rotationSpeed));
-        asteroid.add(new PositionPart(x, y, radians));
+        asteroid.add(new PositionPart(this.x, this.y, radians));
         asteroid.add(new LifePart(this.life,0));
 
         float[] dists = new float[this.numPoints];

@@ -96,7 +96,7 @@ public class Game implements ApplicationListener {
          * Asteroid Plugin
          */
         for (int i = 0; i < 4; i++) {
-            IGamePluginService asteroidPlugin = new AsteroidPlugin(3);
+            IGamePluginService asteroidPlugin = new AsteroidPlugin();
             entityPlugins.add(asteroidPlugin);
         }
 

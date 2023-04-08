@@ -8,6 +8,7 @@ import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
+import dk.sdu.student.miger20.common.services.IGamePluginService;
 
 public class AsteroidControlSystem implements IEntityProcessingService {
     @Override
@@ -24,10 +25,16 @@ public class AsteroidControlSystem implements IEntityProcessingService {
             positionPart.process(gameData, asteroid);
 
             if (lifePart.isIsHit()) {
+                // calculate the next asteroids life.
+                int life = lifePart.getLife()-1;
+
                 System.out.println("Asteroid removed");
                 world.removeEntity(asteroid);
 
-                System.out.println("Asteroid hit, life left: "+lifePart.getLife());
+                for (int i = 0; i < 2; i++) {
+                    IGamePluginService asteroidPlugin = new AsteroidPlugin(asteroid);
+                    asteroidPlugin.start(gameData, world);
+                }
             }
 
             updateShape(asteroid);
