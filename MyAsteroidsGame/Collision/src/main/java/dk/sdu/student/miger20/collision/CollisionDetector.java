@@ -45,6 +45,7 @@ public class CollisionDetector implements IPostEntityProcessingService {
                 if ((entity1.getClass() == Asteroid.class && entity2.getClass() == Bullet.class) && this.collides(entity1, entity2)) {
                     //System.out.println("Collision: 3");
                     entity1Life.setIsHit(true);
+                    entity2Life.setIsHit(true);
                 }
 
                 // Player and Enemy Collide
@@ -58,12 +59,14 @@ public class CollisionDetector implements IPostEntityProcessingService {
                 if ((entity1.getClass() == Player.class && entity2.getClass() == Bullet.class) && this.collides(entity1, entity2)) {
                     //System.out.println("Collision: 5");
                     entity1Life.setIsHit(true);
+                    entity2Life.setIsHit(true);
                 }
 
                 // Enemy shot by bullet
                 if ((entity1.getClass() == Enemy.class && entity2.getClass() == Bullet.class) && this.collides(entity1, entity2)) {
                     //System.out.println("Collision: 6");
                     entity1Life.setIsHit(true);
+                    entity2Life.setIsHit(true);
                 }
             }
         }

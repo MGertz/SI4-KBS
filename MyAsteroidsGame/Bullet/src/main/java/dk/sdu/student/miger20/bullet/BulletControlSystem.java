@@ -26,7 +26,7 @@ public class BulletControlSystem implements IEntityProcessingService {
 
             movingPart.setUp(true);
 
-            if (lifePart.getExpiration() <= 0 ) {
+            if (lifePart.getExpiration() <= 0 || lifePart.isIsHit() ) {
                 world.removeEntity(bullet);
             }
 
