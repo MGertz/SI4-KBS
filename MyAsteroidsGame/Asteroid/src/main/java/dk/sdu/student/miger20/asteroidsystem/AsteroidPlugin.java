@@ -21,12 +21,14 @@ public class AsteroidPlugin implements IGamePluginService {
 
     private int type;
 
+    private int life;
+
     public AsteroidPlugin() {
-        this(LARGE);
+        this(3);
     }
 
-    public AsteroidPlugin(int type) {
-        this.type = type;
+    public AsteroidPlugin(int life) {
+        this.life = life;
     }
 
 
@@ -49,12 +51,12 @@ public class AsteroidPlugin implements IGamePluginService {
 
         Entity asteroid = new Asteroid();
 
-        if (this.type == LARGE) {
+        if (this.life == 3) {
             System.out.println("Large Generated");
             asteroid.setRadius(15);
             this.numPoints = 12;
             maxSpeed = MathUtils.random(20,30);
-        } else if (this.type == MEDIUM) {
+        } else if (this.life == 2) {
             System.out.println("Medium Generated");
             asteroid.setRadius(10);
             this.numPoints=10;
@@ -78,7 +80,7 @@ public class AsteroidPlugin implements IGamePluginService {
 
         asteroid.add(new MovingPart(deceleration, acceleration, maxSpeed, rotationSpeed));
         asteroid.add(new PositionPart(x, y, radians));
-        asteroid.add(new LifePart(1,0));
+        asteroid.add(new LifePart(this.life,0));
 
         float[] dists = new float[this.numPoints];
         for (int i = 0; i < this.numPoints; i++) {

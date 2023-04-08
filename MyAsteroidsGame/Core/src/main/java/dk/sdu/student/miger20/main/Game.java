@@ -96,7 +96,7 @@ public class Game implements ApplicationListener {
          * Asteroid Plugin
          */
         for (int i = 0; i < 4; i++) {
-            IGamePluginService asteroidPlugin = new AsteroidPlugin(LARGE);
+            IGamePluginService asteroidPlugin = new AsteroidPlugin(3);
             entityPlugins.add(asteroidPlugin);
         }
 
@@ -120,6 +120,9 @@ public class Game implements ApplicationListener {
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
 
+        /**
+         * Player shooting
+         */
         if (gameData.getKeys().isPressed(GameKeys.SPACE)) {
             for (Entity entity : world.getEntities(Player.class)) {
 
