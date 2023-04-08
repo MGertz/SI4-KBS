@@ -25,16 +25,17 @@ public class AsteroidControlSystem implements IEntityProcessingService {
             positionPart.process(gameData, asteroid);
 
             if (lifePart.isIsHit()) {
-                // calculate the next asteroids life.
-                int life = lifePart.getLife()-1;
-
-                System.out.println("Asteroid removed");
+                // Remove asteroids from world
                 world.removeEntity(asteroid);
 
-                for (int i = 0; i < 2; i++) {
-                    IGamePluginService asteroidPlugin = new AsteroidPlugin(asteroid);
-                    asteroidPlugin.start(gameData, world);
+                // Check if the asteroid which were killed, has a life of 1, which means the smallest, if not, spawn 2 new asteroids.
+                if (lifePart.getLife() != 1 ) {
+                    for (int i = 0; i < 2; i++) {
+                        IGamePluginService asteroidPlugin = new AsteroidPlugin(asteroid);
+                        asteroidPlugin.start(gameData, world);
+                    }
                 }
+
             }
 
             updateShape(asteroid);
