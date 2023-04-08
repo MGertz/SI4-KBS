@@ -28,7 +28,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             lifePart.process(gameData, player);
 
             if (lifePart.isIsHit()) {
-                System.out.println("Player removed");
+                //System.out.println("Player removed");
                 world.removeEntity(player);
             }
 

@@ -15,7 +15,7 @@ public class BulletPlugin implements IGamePluginService {
     private Entity shooter;
 
     public BulletPlugin(Entity shooter) {
-        System.out.println("BulletPlugin");
+        //System.out.println("BulletPlugin");
         this.shooter = shooter;
     }
 
