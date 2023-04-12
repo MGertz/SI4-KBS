@@ -7,6 +7,7 @@ import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
+import dk.sdu.student.miger20.common.data.entityparts.ShootingPart;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
 
 public class PlayerControlSystem implements IEntityProcessingService {
@@ -18,6 +19,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             MovingPart movingPart = player.getPart(MovingPart.class);
             PositionPart positionPart = player.getPart(PositionPart.class);
             LifePart lifePart = player.getPart(LifePart.class);
+            ShootingPart shootingPart = player.getPart(ShootingPart.class);
 
             movingPart.setLeft(gameData.getKeys().isDown(GameKeys.LEFT));
             movingPart.setRight(gameData.getKeys().isDown(GameKeys.RIGHT));
@@ -26,6 +28,9 @@ public class PlayerControlSystem implements IEntityProcessingService {
             movingPart.process(gameData, player);
             positionPart.process(gameData, player);
             lifePart.process(gameData, player);
+            shootingPart.process(gameData, player);
+
+            shootingPart.setShooting(gameData.getKeys().isDown(GameKeys.SPACE));
 
             if (lifePart.isIsHit()) {
                 //System.out.println("Player removed");

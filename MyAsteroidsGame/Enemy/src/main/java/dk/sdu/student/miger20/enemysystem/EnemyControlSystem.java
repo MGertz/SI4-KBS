@@ -1,11 +1,13 @@
 package dk.sdu.student.miger20.enemysystem;
 
+import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
+import dk.sdu.student.miger20.common.data.entityparts.ShootingPart;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
 
 public class EnemyControlSystem implements IEntityProcessingService {
@@ -20,6 +22,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             MovingPart movingPart = enemy.getPart(MovingPart.class);
             LifePart lifePart = enemy.getPart(LifePart.class);
+            ShootingPart shootingPart = enemy.getPart(ShootingPart.class);
 
             if (this.tickCounter == 30) {
                 this.tickCounter = 0;
@@ -45,6 +48,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
 
             movingPart.process(gameData, enemy);
             positionPart.process(gameData, enemy);
+            shootingPart.process(gameData, enemy);
 
             movingPart.setLeft(false);
             movingPart.setRight(false);
@@ -54,6 +58,8 @@ public class EnemyControlSystem implements IEntityProcessingService {
                 //System.out.println("Enemy removed");
                 world.removeEntity(enemy);
             }
+
+            shootingPart.setShooting(MathUtils.random(0f,1f) > 0.99f);
 
             updateShape(enemy);
 

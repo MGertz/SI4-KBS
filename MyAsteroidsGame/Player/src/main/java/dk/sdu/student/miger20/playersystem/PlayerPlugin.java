@@ -6,6 +6,7 @@ import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
+import dk.sdu.student.miger20.common.data.entityparts.ShootingPart;
 import dk.sdu.student.miger20.common.services.IGamePluginService;
 
 public class PlayerPlugin implements IGamePluginService {
@@ -45,6 +46,7 @@ public class PlayerPlugin implements IGamePluginService {
         playerShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         playerShip.add(new PositionPart(x, y, radians));
         playerShip.add(new LifePart(1,0));
+        playerShip.add(new ShootingPart(0.2f));
         return playerShip;
     }
 

@@ -14,6 +14,7 @@ import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.GameKeys;
 import dk.sdu.student.miger20.common.data.World;
+import dk.sdu.student.miger20.common.data.entityparts.ShootingPart;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
 import dk.sdu.student.miger20.common.services.IGamePluginService;
 import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
@@ -120,21 +121,6 @@ public class Game implements ApplicationListener {
 
         gameData.setDelta(Gdx.graphics.getDeltaTime());
 
-        /**
-         * Player shooting
-         */
-        if (gameData.getKeys().isPressed(GameKeys.SPACE)) {
-            for (Entity entity : world.getEntities(Player.class)) {
-
-                /**
-                 * Bullet Plugin
-                 */
-                IGamePluginService bulletPlugin = new BulletPlugin(entity);
-                this.entityPlugins.add(bulletPlugin);
-                bulletPlugin.start(gameData, world);
-            }
-        }
-
         update();
 
         draw();
@@ -143,6 +129,25 @@ public class Game implements ApplicationListener {
     }
 
     private void update() {
+
+        /**
+         * Detect if some plugin is shooting or not.
+         */
+        for (Entity entity : world.getEntities()) {
+            try {
+                ShootingPart shootingPart = entity.getPart(ShootingPart.class);
+
+                if (shootingPart.getShooting()) {
+                    IGamePluginService bulletPlugin = new BulletPlugin(entity);
+                    this.entityPlugins.add(bulletPlugin);
+                    bulletPlugin.start(gameData, world);
+                }
+
+            } catch (NullPointerException error) {
+            }
+        }
+
+
         // Update EntityProcessingService
         for (IEntityProcessingService entityProcessorService : entityProcessors) {
             entityProcessorService.process(gameData, world);
