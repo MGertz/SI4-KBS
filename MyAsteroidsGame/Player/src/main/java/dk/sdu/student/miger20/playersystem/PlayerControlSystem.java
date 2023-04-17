@@ -33,8 +33,11 @@ public class PlayerControlSystem implements IEntityProcessingService {
             shootingPart.setShooting(gameData.getKeys().isDown(GameKeys.SPACE));
 
             if (lifePart.isIsHit()) {
-                //System.out.println("Player removed");
-                world.removeEntity(player);
+                lifePart.setLife(lifePart.getLife()-1);
+                if( lifePart.getLife() == 0 ) {
+                    //System.out.println("Player removed");
+                    world.removeEntity(player);
+                }
             }
 
             updateShape(player);

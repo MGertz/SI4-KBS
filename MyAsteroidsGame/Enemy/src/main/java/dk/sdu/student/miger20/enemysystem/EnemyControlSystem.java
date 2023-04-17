@@ -55,8 +55,11 @@ public class EnemyControlSystem implements IEntityProcessingService {
             movingPart.setUp(false);
 
             if (lifePart.isIsHit()) {
-                //System.out.println("Enemy removed");
-                world.removeEntity(enemy);
+                lifePart.setLife(lifePart.getLife()-1);
+                if( lifePart.getLife() == 0 ) {
+                    //System.out.println("Player removed");
+                    world.removeEntity(enemy);
+                }
             }
 
             shootingPart.setShooting(MathUtils.random(0f,1f) > 0.99f);
