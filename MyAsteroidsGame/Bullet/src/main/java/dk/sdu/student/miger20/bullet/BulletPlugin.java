@@ -12,17 +12,16 @@ import dk.sdu.student.miger20.common.services.IGamePluginService;
 public class BulletPlugin implements IGamePluginService {
 
     private Entity bullet;
-    private Entity shooter;
+    private Entity owner;
 
-    public BulletPlugin(Entity shooter) {
-        //System.out.println("BulletPlugin");
-        this.shooter = shooter;
     }
 
     @Override
     public void start(GameData gameData, World world) {
         bullet = createBullet(gameData);
         world.addEntity(bullet);
+    public BulletPlugin(Entity owner) {
+        this.owner = owner;
     }
 
     /**
@@ -35,8 +34,8 @@ public class BulletPlugin implements IGamePluginService {
      * @return Bullet entity with initial data from shooter
      */
     private Entity createBullet(GameData gameData) {
-        PositionPart shooterPosition = this.shooter.getPart(PositionPart.class);
-        MovingPart shooterMovement = this.shooter.getPart(MovingPart.class);
+        PositionPart shooterPosition = this.owner.getPart(PositionPart.class);
+        MovingPart shooterMovement = this.owner.getPart(MovingPart.class);
 
         float deacceleration = 0;
         float acceleration = 0;
@@ -48,9 +47,9 @@ public class BulletPlugin implements IGamePluginService {
 
         bullet.setRadius(1);
 
-        float bx = (float) MathUtils.cos(radians) * this.shooter.getRadius() * bullet.getRadius();
+        float bx = (float) MathUtils.cos(radians) * this.owner.getRadius() * bullet.getRadius();
         float x = bx + shooterPosition.getX();
-        float by = (float) MathUtils.sin(radians) * this.shooter.getRadius() * bullet.getRadius();
+        float by = (float) MathUtils.sin(radians) * this.owner.getRadius() * bullet.getRadius();
         float y = by + shooterPosition.getY();
 
         float shootSpeed = 350 + shooterMovement.getSpeed();
