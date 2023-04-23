@@ -7,22 +7,25 @@ import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
+import dk.sdu.student.miger20.common.services.IBulletCreate;
 import dk.sdu.student.miger20.common.services.IGamePluginService;
 
-public class BulletPlugin implements IGamePluginService {
+public class BulletPlugin implements IGamePluginService, IBulletCreate {
 
     private Entity bullet;
     private Entity owner;
 
+    // Not sure what is does, but its required, game wont work if its not there.
+    public BulletPlugin() {
+        this(null);
     }
 
-    @Override
-    public void start(GameData gameData, World world) {
-        bullet = createBullet(gameData);
-        world.addEntity(bullet);
     public BulletPlugin(Entity owner) {
         this.owner = owner;
     }
+
+    @Override
+    public void start(GameData gameData, World world) {}
 
     /**
      * Create bullet entity with default parameters based on shooter
@@ -43,7 +46,8 @@ public class BulletPlugin implements IGamePluginService {
         float rotationSpeed = 0;
         float radians = shooterPosition.getRadians();
 
-        Entity bullet = new Bullet();
+        //Entity bullet = new Bullet();
+        this.bullet = new Bullet();
 
         bullet.setRadius(1);
 
@@ -72,7 +76,19 @@ public class BulletPlugin implements IGamePluginService {
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities
-        world.removeEntity(bullet);
+        world.removeEntity(this. bullet);
+    }
+
+    /**
+     * This overwrites the start() method from the IGamePluginService Interface
+     * @param owner
+     * @param gameData
+     * @return
+     */
+    @Override
+    public Entity create(Entity owner, GameData gameData) {
+        this.owner = owner;
+        return this.createBullet(gameData);
     }
 }
 
