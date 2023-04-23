@@ -37,7 +37,7 @@ public class BulletPlugin implements IGamePluginService {
         PositionPart shooterPosition = this.owner.getPart(PositionPart.class);
         MovingPart shooterMovement = this.owner.getPart(MovingPart.class);
 
-        float deacceleration = 0;
+        float deceleration = 0;
         float acceleration = 0;
         float maxSpeed = 1000;
         float rotationSpeed = 0;
@@ -62,7 +62,7 @@ public class BulletPlugin implements IGamePluginService {
         colors[2] = 0;
         colors[3] = 1;
         bullet.setColors(colors);
-        bullet.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed, shootSpeed));
+        bullet.add(new MovingPart(deceleration, acceleration, maxSpeed, rotationSpeed, shootSpeed));
         bullet.add(new PositionPart(x, y, radians));
         bullet.add(new LifePart(1, 1));
 
