@@ -7,23 +7,25 @@ import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
+import dk.sdu.student.miger20.common.services.IBulletCreate;
 import dk.sdu.student.miger20.common.services.IGamePluginService;
 
-public class BulletPlugin implements IGamePluginService {
+public class BulletPlugin implements IGamePluginService, IBulletCreate {
 
     private Entity bullet;
-    private Entity shooter;
+    private Entity owner;
 
-    public BulletPlugin(Entity shooter) {
-        //System.out.println("BulletPlugin");
-        this.shooter = shooter;
+    // Not sure what is does, but its required, game wont work if its not there.
+    public BulletPlugin() {
+        this(null);
+    }
+
+    public BulletPlugin(Entity owner) {
+        this.owner = owner;
     }
 
     @Override
-    public void start(GameData gameData, World world) {
-        bullet = createBullet(gameData);
-        world.addEntity(bullet);
-    }
+    public void start(GameData gameData, World world) {}
 
     /**
      * Create bullet entity with default parameters based on shooter
@@ -35,22 +37,23 @@ public class BulletPlugin implements IGamePluginService {
      * @return Bullet entity with initial data from shooter
      */
     private Entity createBullet(GameData gameData) {
-        PositionPart shooterPosition = this.shooter.getPart(PositionPart.class);
-        MovingPart shooterMovement = this.shooter.getPart(MovingPart.class);
+        PositionPart shooterPosition = this.owner.getPart(PositionPart.class);
+        MovingPart shooterMovement = this.owner.getPart(MovingPart.class);
 
-        float deacceleration = 0;
+        float deceleration = 0;
         float acceleration = 0;
         float maxSpeed = 1000;
         float rotationSpeed = 0;
         float radians = shooterPosition.getRadians();
 
-        Entity bullet = new Bullet();
+        //Entity bullet = new Bullet();
+        this.bullet = new Bullet();
 
         bullet.setRadius(1);
 
-        float bx = (float) MathUtils.cos(radians) * this.shooter.getRadius() * bullet.getRadius();
+        float bx = (float) MathUtils.cos(radians) * this.owner.getRadius() * bullet.getRadius();
         float x = bx + shooterPosition.getX();
-        float by = (float) MathUtils.sin(radians) * this.shooter.getRadius() * bullet.getRadius();
+        float by = (float) MathUtils.sin(radians) * this.owner.getRadius() * bullet.getRadius();
         float y = by + shooterPosition.getY();
 
         float shootSpeed = 350 + shooterMovement.getSpeed();
@@ -63,7 +66,7 @@ public class BulletPlugin implements IGamePluginService {
         colors[2] = 0;
         colors[3] = 1;
         bullet.setColors(colors);
-        bullet.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed, shootSpeed));
+        bullet.add(new MovingPart(deceleration, acceleration, maxSpeed, rotationSpeed, shootSpeed));
         bullet.add(new PositionPart(x, y, radians));
         bullet.add(new LifePart(1, 1));
 
@@ -73,7 +76,19 @@ public class BulletPlugin implements IGamePluginService {
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities
-        world.removeEntity(bullet);
+        world.removeEntity(this. bullet);
+    }
+
+    /**
+     * This overwrites the start() method from the IGamePluginService Interface
+     * @param owner
+     * @param gameData
+     * @return
+     */
+    @Override
+    public Entity create(Entity owner, GameData gameData) {
+        this.owner = owner;
+        return this.createBullet(gameData);
     }
 }
 

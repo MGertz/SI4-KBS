@@ -1,4 +1,4 @@
-package dk.sdu.student.miger20.asteroidsystem;
+package dk.sdu.student.miger20.asteroid;
 
 import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
@@ -27,8 +27,12 @@ public class AsteroidPlugin implements IGamePluginService {
 
     private int life;
 
+    private int spawn; // Contains the number to spawn
+
     public AsteroidPlugin() {
         this.life = 3;
+        this.spawn = 4;
+
     }
 
     public AsteroidPlugin(Entity asteroid) {
@@ -36,20 +40,31 @@ public class AsteroidPlugin implements IGamePluginService {
         LifePart lifePart = asteroid.getPart(LifePart.class);
         this.life = lifePart.getLife()-1;
 
+        this.spawn = 2;
+
         this.x = positionPart.getX();
         this.y = positionPart.getY();
     }
 
     @Override
     public void start(GameData gameData, World world) {
-        if (this.x == -1 || this.y == -1) {
-            this.x = MathUtils.random((float)gameData.getDisplayWidth());
-            this.y = MathUtils.random((float)gameData.getDisplayHeight());
+        // Check how many to spawn.
+        for (int i = 0; i < this.spawn; i++) {
+
+            // Check if life is 3(large)
+            // YES: then generate a random x,y coordinate for it.
+            // NO: Don't generate a x,y as it will get it from the previously asteroid.
+            if (this.life == 3) {
+                this.x = MathUtils.random((float)gameData.getDisplayWidth());
+                this.y = MathUtils.random((float)gameData.getDisplayHeight());
+            }
+
+            // Add entities to the world
+            this.asteroid = createAsteroid(gameData);
+            world.addEntity(this.asteroid);
+
         }
 
-        // Add entities to the world
-        this.asteroid = createAsteroid(gameData);
-        world.addEntity(this.asteroid);
     }
 
     private Entity createAsteroid(GameData gameData) {

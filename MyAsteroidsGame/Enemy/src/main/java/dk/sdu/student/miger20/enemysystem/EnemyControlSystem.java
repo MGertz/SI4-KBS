@@ -8,7 +8,11 @@ import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.data.entityparts.ShootingPart;
+import dk.sdu.student.miger20.common.services.IBulletCreate;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
+import dk.sdu.student.miger20.common.util.SPILocator;
+
+import java.util.Collection;
 
 public class EnemyControlSystem implements IEntityProcessingService {
 
@@ -62,7 +66,20 @@ public class EnemyControlSystem implements IEntityProcessingService {
                 }
             }
 
-            shootingPart.setShooting(MathUtils.random(0f,1f) > 0.99f);
+            // Craete a random float between 0 and 1.
+            // If over 0.99 it will set shootingPart as true.
+            //shootingPart.setShooting(MathUtils.random(0f,1f) > 0.99f);
+            shootingPart.setShooting(false);
+
+            // Check if shooting part is set to true.
+            // If yes. generate a bullet.
+            if (shootingPart.getShooting()) {
+                Collection<IBulletCreate> bulletPlugins = SPILocator.locateAll(IBulletCreate.class);
+
+                for (IBulletCreate bulletPlugin : bulletPlugins) {
+                    world.addEntity(bulletPlugin.create(enemy, gameData));
+                }
+            }
 
             updateShape(enemy);
 

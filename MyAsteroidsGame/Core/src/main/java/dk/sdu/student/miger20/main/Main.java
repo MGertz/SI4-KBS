@@ -13,8 +13,7 @@ public class Main {
 		cfg.height = (1080/2);
 		cfg.useGL30 = false;
 		cfg.resizable = true;
-		//cfg.fullscreen = true;
-		
+
 		new LwjglApplication(new Game(), cfg);
 		
 	}

@@ -1,6 +1,6 @@
 package dk.sdu.student.miger20.collision;
 
-import dk.sdu.student.miger20.asteroidsystem.Asteroid;
+import dk.sdu.student.miger20.asteroid.Asteroid;
 import dk.sdu.student.miger20.bullet.Bullet;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;

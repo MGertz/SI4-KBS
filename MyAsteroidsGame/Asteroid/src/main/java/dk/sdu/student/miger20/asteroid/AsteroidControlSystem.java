@@ -1,4 +1,4 @@
-package dk.sdu.student.miger20.asteroidsystem;
+package dk.sdu.student.miger20.asteroid;
 
 import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
@@ -30,10 +30,8 @@ public class AsteroidControlSystem implements IEntityProcessingService {
 
                 // Check if the asteroid which were killed, has a life of 1, which means the smallest, if not, spawn 2 new asteroids.
                 if (lifePart.getLife() != 1 ) {
-                    for (int i = 0; i < 2; i++) {
-                        IGamePluginService asteroidPlugin = new AsteroidPlugin(asteroid);
-                        asteroidPlugin.start(gameData, world);
-                    }
+                    IGamePluginService asteroidPlugin = new AsteroidPlugin(asteroid);
+                    asteroidPlugin.start(gameData, world);
                 }
 
             }

@@ -8,7 +8,11 @@ import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.data.entityparts.ShootingPart;
+import dk.sdu.student.miger20.common.services.IBulletCreate;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
+import dk.sdu.student.miger20.common.util.SPILocator;
+
+import java.util.Collection;
 
 public class PlayerControlSystem implements IEntityProcessingService {
     @Override
@@ -30,7 +34,18 @@ public class PlayerControlSystem implements IEntityProcessingService {
             lifePart.process(gameData, player);
             shootingPart.process(gameData, player);
 
+            // Set shooting part. Taking whether the spacebar is pressed or not.
             shootingPart.setShooting(gameData.getKeys().isDown(GameKeys.SPACE));
+
+            // Check if shooting part is set to true.
+            // If yes. generate a bullet.
+            if (shootingPart.getShooting()) {
+                Collection<IBulletCreate> bulletPlugins = SPILocator.locateAll(IBulletCreate.class);
+
+                for (IBulletCreate bulletPlugin : bulletPlugins) {
+                    world.addEntity(bulletPlugin.create(player, gameData));
+                }
+            }
 
             if (lifePart.isIsHit()) {
                 lifePart.setLife(lifePart.getLife()-1);
