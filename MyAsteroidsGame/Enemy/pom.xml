@@ -4,7 +4,7 @@
     <parent>
         <groupId>dk.sdu.student.miger20</groupId>
         <artifactId>MyAsteroidsGame</artifactId>
-        <version>3-JavaLab</version>
+        <version>4-JpmsLab</version>
     </parent>
     <artifactId>Enemy</artifactId>
     <packaging>jar</packaging>
