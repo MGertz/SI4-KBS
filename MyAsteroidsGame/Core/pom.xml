@@ -8,6 +8,10 @@
     </parent>
     <artifactId>Core</artifactId>
     <packaging>jar</packaging>
+    <version>4-JpmsLab</version>
+
+    <name>Core</name>
+
     <build>
         <plugins>
             <plugin>
