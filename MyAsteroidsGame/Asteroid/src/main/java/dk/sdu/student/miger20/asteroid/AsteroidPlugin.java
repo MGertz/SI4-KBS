@@ -1,6 +1,5 @@
 package dk.sdu.student.miger20.asteroid;
 
-import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
@@ -55,8 +54,8 @@ public class AsteroidPlugin implements IGamePluginService {
             // YES: then generate a random x,y coordinate for it.
             // NO: Don't generate a x,y as it will get it from the previously asteroid.
             if (this.life == 3) {
-                this.x = MathUtils.random((float)gameData.getDisplayWidth());
-                this.y = MathUtils.random((float)gameData.getDisplayHeight());
+                this.x = (float) Math.random() * gameData.getDisplayWidth();
+                this.y = (float) Math.random() * gameData.getDisplayHeight();
             }
 
             // Add entities to the world
@@ -72,7 +71,7 @@ public class AsteroidPlugin implements IGamePluginService {
         float acceleration = 100;
         float maxSpeed = 0;
         float rotationSpeed = 0;
-        float radians = MathUtils.random(MathUtils.PI2);
+        float radians = (float) (Math.random() * Math.PI*2);
 
         Entity asteroid = new Asteroid();
 
@@ -80,17 +79,17 @@ public class AsteroidPlugin implements IGamePluginService {
             //System.out.println("Large Generated");
             asteroid.setRadius(15);
             this.numPoints = 12;
-            maxSpeed = MathUtils.random(20,30);
+            maxSpeed = (float) Math.random() * (20-30) + 20;
         } else if (this.life == 2) {
             //System.out.println("Medium Generated");
             asteroid.setRadius(10);
             this.numPoints=10;
-            maxSpeed = MathUtils.random(50,60);
+            maxSpeed = (float) Math.random() * (50-60) + 50;
         } else { // SMALL
             //System.out.println("Small Generated");
             asteroid.setRadius(5);
             this.numPoints=8;
-            maxSpeed = MathUtils.random(70,100);
+            maxSpeed = (float) Math.random() * (70-100) + 70;
         }
 
         int[] colors = new int[4];
@@ -109,7 +108,7 @@ public class AsteroidPlugin implements IGamePluginService {
 
         float[] dists = new float[this.numPoints];
         for (int i = 0; i < this.numPoints; i++) {
-            dists[i] = MathUtils.random(asteroid.getRadius()/2, asteroid.getRadius());
+            dists[i] = (float) Math.random() + (asteroid.getRadius()/2 - asteroid.getRadius()) + asteroid.getRadius();
         }
 
         asteroid.setDists(dists);

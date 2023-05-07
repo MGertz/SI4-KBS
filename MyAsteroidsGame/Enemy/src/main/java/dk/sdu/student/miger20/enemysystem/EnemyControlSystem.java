@@ -1,6 +1,5 @@
 package dk.sdu.student.miger20.enemysystem;
 
-import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;

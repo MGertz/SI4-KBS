@@ -1,6 +1,5 @@
 package dk.sdu.student.miger20.bullet;
 
-import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
@@ -13,16 +12,17 @@ import dk.sdu.student.miger20.common.services.IGamePluginService;
 public class BulletPlugin implements IGamePluginService, IBulletCreate {
 
     private Entity bullet;
-    private Entity owner;
 
     // Not sure what is does, but its required, game wont work if its not there.
     public BulletPlugin() {
-        this(null);
+        //this(null);
     }
 
+    /*
     public BulletPlugin(Entity owner) {
         this.owner = owner;
     }
+    */
 
     @Override
     public void start(GameData gameData, World world) {}
@@ -36,9 +36,9 @@ public class BulletPlugin implements IGamePluginService, IBulletCreate {
      * @param gameData Data for the game
      * @return Bullet entity with initial data from shooter
      */
-    private Entity createBullet(GameData gameData) {
-        PositionPart shooterPosition = this.owner.getPart(PositionPart.class);
-        MovingPart shooterMovement = this.owner.getPart(MovingPart.class);
+    private Entity createBullet(GameData gameData, Entity owner) {
+        PositionPart shooterPosition = owner.getPart(PositionPart.class);
+        MovingPart shooterMovement = owner.getPart(MovingPart.class);
 
         float deceleration = 0;
         float acceleration = 0;
@@ -51,9 +51,9 @@ public class BulletPlugin implements IGamePluginService, IBulletCreate {
 
         bullet.setRadius(1);
 
-        float bx = (float) MathUtils.cos(radians) * this.owner.getRadius() * bullet.getRadius();
+        float bx = (float) Math.cos(radians) * owner.getRadius() * bullet.getRadius();
         float x = bx + shooterPosition.getX();
-        float by = (float) MathUtils.sin(radians) * this.owner.getRadius() * bullet.getRadius();
+        float by = (float) Math.sin(radians) * owner.getRadius() * bullet.getRadius();
         float y = by + shooterPosition.getY();
 
         float shootSpeed = 350 + shooterMovement.getSpeed();
@@ -87,8 +87,7 @@ public class BulletPlugin implements IGamePluginService, IBulletCreate {
      */
     @Override
     public Entity create(Entity owner, GameData gameData) {
-        this.owner = owner;
-        return this.createBullet(gameData);
+        return this.createBullet(gameData, owner);
     }
 }
 

@@ -1,6 +1,5 @@
 package dk.sdu.student.miger20.asteroid;
 
-import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
@@ -57,10 +56,10 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         float[] dists = entity.getDists();
 
         for (int i=0; i < shapex.length ; i++) {
-            shapex[i] = x + MathUtils.cos(angle + radians) * dists[i];
-            shapey[i] = y + MathUtils.sin(angle + radians) * dists[i];
+            shapex[i] = x + (float) Math.cos(angle + radians) * dists[i];
+            shapey[i] = y + (float) Math.sin(angle + radians) * dists[i];
 
-            angle += MathUtils.PI2 / shapex.length;
+            angle += Math.PI*2 / shapex.length;
         }
 
         entity.setShapeX(shapex);
