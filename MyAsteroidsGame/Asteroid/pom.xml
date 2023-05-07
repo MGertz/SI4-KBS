@@ -8,6 +8,8 @@
     </parent>
     <artifactId>Asteroid</artifactId>
     <packaging>jar</packaging>
+    <version>3-JavaLab</version>
+    <name>Asteroid</name>
     <build>
         <plugins>
             <plugin>

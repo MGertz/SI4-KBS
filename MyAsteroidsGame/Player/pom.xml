@@ -8,6 +8,8 @@
     </parent>
     <artifactId>Player</artifactId>
     <packaging>jar</packaging>
+    <version>3-JavaLab</version>
+    <name>Player</name>
     <build>
         <plugins>
             <plugin>

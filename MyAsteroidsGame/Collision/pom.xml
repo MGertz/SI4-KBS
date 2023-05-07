@@ -8,6 +8,8 @@
     </parent>
     <artifactId>Collision</artifactId>
     <packaging>jar</packaging>
+    <version>3-JavaLab</version>
+    <name>Collision</name>
     <build>
         <plugins>
             <plugin>

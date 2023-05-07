@@ -8,6 +8,8 @@
     </parent>
     <artifactId>Core</artifactId>
     <packaging>jar</packaging>
+    <version>3-JavaLab</version>
+    <name>Core</name>
     <build>
         <plugins>
             <plugin>

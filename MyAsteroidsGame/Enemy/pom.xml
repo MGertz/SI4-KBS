@@ -8,6 +8,8 @@
     </parent>
     <artifactId>Enemy</artifactId>
     <packaging>jar</packaging>
+    <version>3-JavaLab</version>
+    <name>Enemy</name>
     <build>
         <plugins>
             <plugin>

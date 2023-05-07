@@ -8,6 +8,8 @@
     </parent>
     <artifactId>Bullet</artifactId>
     <packaging>jar</packaging>
+    <version>3-JavaLab</version>
+    <name>Bullet</name>
     <build>
         <plugins>
             <plugin>
