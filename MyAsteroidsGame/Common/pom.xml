@@ -6,17 +6,9 @@
         <artifactId>MyAsteroidsGame</artifactId>
         <version>4-JpmsLab</version>
     </parent>
+
     <artifactId>Common</artifactId>
     <packaging>jar</packaging>
+    <version>4-JpmsLab</version>
     <name>Common</name>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
-            </plugin>
-        </plugins>
-    </build>
 </project>
