@@ -24,7 +24,7 @@
         <dependency>
             <groupId>dk.sdu.student.miger20</groupId>
             <artifactId>Common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>3-JavaLab</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -36,25 +36,25 @@
         <dependency>
             <groupId>dk.sdu.student.miger20</groupId>
             <artifactId>Asteroid</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>3-JavaLab</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>dk.sdu.student.miger20</groupId>
             <artifactId>Player</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>3-JavaLab</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>dk.sdu.student.miger20</groupId>
             <artifactId>Enemy</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>3-JavaLab</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>dk.sdu.student.miger20</groupId>
             <artifactId>Bullet</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>3-JavaLab</version>
             <scope>compile</scope>
         </dependency>
 		<dependency>
