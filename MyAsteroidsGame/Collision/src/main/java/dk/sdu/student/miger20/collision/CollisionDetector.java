@@ -1,15 +1,11 @@
 package dk.sdu.student.miger20.collision;
 
-import dk.sdu.student.miger20.asteroid.Asteroid;
-import dk.sdu.student.miger20.bullet.Bullet;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
-import dk.sdu.student.miger20.enemysystem.Enemy;
-import dk.sdu.student.miger20.playersystem.Player;
 
 public class CollisionDetector implements IPostEntityProcessingService {
 
@@ -28,43 +24,13 @@ public class CollisionDetector implements IPostEntityProcessingService {
                 LifePart entity1Life = entity1.getPart(LifePart.class);
                 LifePart entity2Life = entity2.getPart(LifePart.class);
 
-
-                // Player collide with Asteroid
-                if ((entity1.getClass() == Player.class && entity2.getClass() == Asteroid.class) && this.collides(entity1, entity2)) {
-                    //System.out.println("Collision: 1");
-                    entity1Life.setIsHit(true);
-                }
-
-                // Enemy collide with Asteroid
-                if ((entity1.getClass() == Enemy.class && entity2.getClass() == Asteroid.class) && this.collides(entity1, entity2)) {
-                    //System.out.println("Collision: 2");
-                    entity1Life.setIsHit(true);
-                }
-
-                // Asteroid shot at
-                if ((entity1.getClass() == Asteroid.class && entity2.getClass() == Bullet.class) && this.collides(entity1, entity2)) {
-                    //System.out.println("Collision: 3");
-                    entity1Life.setIsHit(true);
-                    entity2Life.setIsHit(true);
-                }
-
-                // Player and Enemy Collide
-                if ((entity1.getClass() == Player.class && entity2.getClass() == Enemy.class) && this.collides(entity1, entity2)) {
-                    //System.out.println("Collision: 4");
-                    entity1Life.setIsHit(true);
-                    entity2Life.setIsHit(true);
-                }
-
-                // Player shot by bullet
-                if ((entity1.getClass() == Player.class && entity2.getClass() == Bullet.class) && this.collides(entity1, entity2)) {
-                    //System.out.println("Collision: 5");
-                    entity1Life.setIsHit(true);
-                    entity2Life.setIsHit(true);
-                }
-
-                // Enemy shot by bullet
-                if ((entity1.getClass() == Enemy.class && entity2.getClass() == Bullet.class) && this.collides(entity1, entity2)) {
-                    //System.out.println("Collision: 6");
+                if (
+                    entity1.getClass() != entity2.getClass()
+                    && this.collides(entity1, entity2)
+                ) {
+                    System.out.println("----==== Collision ====----");
+                    System.out.println(entity1.getClass());
+                    System.out.println(entity2.getClass());
                     entity1Life.setIsHit(true);
                     entity2Life.setIsHit(true);
                 }
