@@ -5,7 +5,6 @@
  */
 package dk.sdu.student.miger20.common.data.entityparts;
 
-import com.badlogic.gdx.math.MathUtils;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 
