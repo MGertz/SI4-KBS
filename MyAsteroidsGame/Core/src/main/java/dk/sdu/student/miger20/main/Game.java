@@ -9,13 +9,17 @@ import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
-import dk.sdu.student.miger20.common.services.IGamePluginService;
 import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
 import dk.sdu.student.miger20.common.util.SPILocator;
+import dk.sdu.student.miger20.components.IProcessor;
+import dk.sdu.student.miger20.components.PluginInjection;
 import dk.sdu.student.miger20.managers.GameInputProcessor;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+@Component("Game")
 public class Game implements ApplicationListener {
 
     private static OrthographicCamera cam;
@@ -24,9 +28,16 @@ public class Game implements ApplicationListener {
     private final GameData gameData = new GameData();
     private final World world = new World();
 
+    private AnnotationConfigApplicationContext components;
+
+    public Game() {
+        this.components = new AnnotationConfigApplicationContext();
+        this.components.scan("dk.sdu.student.miger20.components");
+        this.components.refresh();
+    }
+
     @Override
     public void create() {
-
         gameData.setDisplayWidth(Gdx.graphics.getWidth());
         gameData.setDisplayHeight(Gdx.graphics.getHeight());
 
@@ -38,10 +49,7 @@ public class Game implements ApplicationListener {
 
         Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
-        // Initiate all objects
-        for (IGamePluginService gp : getPluginServices()) {
-            gp.start(gameData, world);
-        }
+        ((PluginInjection) components.getBean("pluginInjector")).startPlugins(gameData, world);
     }
 
     @Override
@@ -61,15 +69,8 @@ public class Game implements ApplicationListener {
     }
 
     private void update() {
-        // Update EntityProcessingService
-        for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
-            entityProcessorService.process(gameData, world);
-        }
-
-        // Update PostEntityProcessingService
-        for (IPostEntityProcessingService postEntityProcessingService : getPostEntityProcessingServices()) {
-            postEntityProcessingService.process(gameData, world);
-        }
+        ((IProcessor) components.getBean("processorInjector")).process(gameData, world);
+        ((IProcessor) components.getBean("postProcessorInjector")).process(gameData, world);
     }
 
     private void draw() {
@@ -90,14 +91,6 @@ public class Game implements ApplicationListener {
 
             sr.end();
         }
-    }
-
-    /**
-     * Find all IGamePluginServices
-     * @return Collection
-     */
-    private Collection<? extends IGamePluginService> getPluginServices() {
-        return SPILocator.locateAll(IGamePluginService.class);
     }
 
     /**
