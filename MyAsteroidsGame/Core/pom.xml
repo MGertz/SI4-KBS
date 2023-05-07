@@ -38,80 +38,15 @@
     
     <dependencies>
         <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx</artifactId>
-            <version>${libGDX.version}</version>
-            <type>jar</type>
+            <groupId>dk.sdu.mmmi.cbse</groupId>
+            <artifactId>shadedlibgdx</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-platform</artifactId>
-            <version>${libGDX.version}</version>
-            <classifier>natives-desktop</classifier>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-backend-lwjgl</artifactId>
-            <version>${libGDX.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-box2d</artifactId>
-            <version>${libGDX.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-box2d-platform</artifactId>
-            <classifier>natives-desktop</classifier>
-            <version>${libGDX.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-freetype</artifactId>
-            <version>${libGDX.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.badlogicgames.gdx</groupId>
-            <artifactId>gdx-freetype-platform</artifactId>
-            <classifier>natives-desktop</classifier>
-            <version>${libGDX.version}</version>
-        </dependency>
-
-
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>Common</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Player</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Enemy</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Asteroid</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Collision</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Bullet</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
+
     </dependencies>
 </project>
