@@ -6,17 +6,11 @@
         <artifactId>MyAsteroidsGame</artifactId>
         <version>4-JpmsLab</version>
     </parent>
+
     <artifactId>Player</artifactId>
     <packaging>jar</packaging>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
-            </plugin>
-        </plugins>
-    </build>
+    <version>4-JpmsLab</version>
+    <name>Player</name>
 
     <dependencies>
         <dependency>
