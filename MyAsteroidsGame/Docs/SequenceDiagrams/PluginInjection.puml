@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title PluginInjection
+
+participant Core
+participant PluginInjection
+participant SPILocator
+participant Plugin
+participant world
+
+
+Core -> PluginInjection: startPlugins()
+activate PluginInjection
+
+PluginInjection -> SPILocator: locateAll(Class)
+activate SPILocator
+SPILocator --> PluginInjection: List<Class T>
+deactivate SPILocator
+
+loop for each plugin
+    PluginInjection -> Plugin: start(gameData, world)
+    activate Plugin
+
+    note right of Plugin
+        Plugin represents
+        all components which
+        provices a IGamePluginService
+    end note
+
+
+    Plugin -> Plugin: create(gameData)
+
+    Plugin -> World: addEntity(entity)
+    activate World
+    World --> Plugin: void
+    deactivate World
+
+
+
+    Plugin --> PluginInjection: void
+    deactivate Plugin
+end loop
+
+
+
+PluginInjection --> Core: void
+deactivate PluginInjection
+
+@enduml
