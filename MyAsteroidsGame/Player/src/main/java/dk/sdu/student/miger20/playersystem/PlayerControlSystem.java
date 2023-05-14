@@ -8,7 +8,7 @@ import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.data.entityparts.ShootingPart;
-import dk.sdu.student.miger20.common.services.IBulletCreateService;
+import dk.sdu.student.miger20.common.services.IBulletCreationService;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
 import dk.sdu.student.miger20.common.util.SPILocator;
 
@@ -40,9 +40,9 @@ public class PlayerControlSystem implements IEntityProcessingService {
             // Check if shooting part is set to true.
             // If yes. generate a bullet.
             if (shootingPart.getShooting()) {
-                Collection<IBulletCreateService> bulletPlugins = SPILocator.locateAll(IBulletCreateService.class);
+                Collection<IBulletCreationService> bulletPlugins = SPILocator.locateAll(IBulletCreationService.class);
 
-                for (IBulletCreateService bulletPlugin : bulletPlugins) {
+                for (IBulletCreationService bulletPlugin : bulletPlugins) {
                     bulletPlugin.create(gameData, world, player);
                 }
             }
