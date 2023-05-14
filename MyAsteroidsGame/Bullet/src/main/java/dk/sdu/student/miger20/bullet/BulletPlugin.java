@@ -6,10 +6,10 @@ import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
-import dk.sdu.student.miger20.common.services.IBulletCreate;
+import dk.sdu.student.miger20.common.services.IBulletCreateService;
 import dk.sdu.student.miger20.common.services.IGamePluginService;
 
-public class BulletPlugin implements IGamePluginService, IBulletCreate {
+public class BulletPlugin implements IGamePluginService, IBulletCreateService {
 
     private Entity bullet;
 

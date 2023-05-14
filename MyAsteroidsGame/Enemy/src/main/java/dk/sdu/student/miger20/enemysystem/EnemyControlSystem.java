@@ -7,7 +7,7 @@ import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.MovingPart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
 import dk.sdu.student.miger20.common.data.entityparts.ShootingPart;
-import dk.sdu.student.miger20.common.services.IBulletCreate;
+import dk.sdu.student.miger20.common.services.IBulletCreateService;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
 import dk.sdu.student.miger20.common.util.SPILocator;
 
@@ -73,9 +73,9 @@ public class EnemyControlSystem implements IEntityProcessingService {
             // Check if shooting part is set to true.
             // If yes. generate a bullet.
             if (shootingPart.getShooting()) {
-                Collection<IBulletCreate> bulletPlugins = SPILocator.locateAll(IBulletCreate.class);
+                Collection<IBulletCreateService> bulletPlugins = SPILocator.locateAll(IBulletCreateService.class);
 
-                for (IBulletCreate bulletPlugin : bulletPlugins) {
+                for (IBulletCreateService bulletPlugin : bulletPlugins) {
                     world.addEntity(bulletPlugin.create(enemy, gameData));
                 }
             }

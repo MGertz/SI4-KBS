@@ -3,7 +3,7 @@ package dk.sdu.student.miger20.common.services;
 import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 
-public interface IBulletCreate {
+public interface IBulletCreateService {
 
     /**
      * Start the plugin
