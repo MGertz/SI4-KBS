@@ -76,7 +76,8 @@ public class EnemyControlSystem implements IEntityProcessingService {
                 Collection<IBulletCreateService> bulletPlugins = SPILocator.locateAll(IBulletCreateService.class);
 
                 for (IBulletCreateService bulletPlugin : bulletPlugins) {
-                    world.addEntity(bulletPlugin.create(enemy, gameData));
+                    //world.addEntity(bulletPlugin.create(enemy, gameData));
+                    bulletPlugin.create(gameData, world, enemy);
                 }
             }
 

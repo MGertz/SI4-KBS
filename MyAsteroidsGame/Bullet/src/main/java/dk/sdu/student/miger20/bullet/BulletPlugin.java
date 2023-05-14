@@ -86,8 +86,9 @@ public class BulletPlugin implements IGamePluginService, IBulletCreateService {
      * @return
      */
     @Override
-    public Entity create(Entity owner, GameData gameData) {
-        return this.createBullet(gameData, owner);
+    public void create(GameData gameData, World world, Entity owner) {
+        Entity bullet = this.createBullet(gameData, owner);
+        world.addEntity(bullet);
     }
 }
 

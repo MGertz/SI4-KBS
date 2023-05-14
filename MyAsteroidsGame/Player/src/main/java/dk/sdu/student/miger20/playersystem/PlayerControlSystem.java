@@ -43,7 +43,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 Collection<IBulletCreateService> bulletPlugins = SPILocator.locateAll(IBulletCreateService.class);
 
                 for (IBulletCreateService bulletPlugin : bulletPlugins) {
-                    world.addEntity(bulletPlugin.create(player, gameData));
+                    bulletPlugin.create(gameData, world, player);
                 }
             }
 
