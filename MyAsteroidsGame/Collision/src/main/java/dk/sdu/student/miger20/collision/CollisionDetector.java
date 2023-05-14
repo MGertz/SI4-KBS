@@ -5,9 +5,9 @@ import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.data.entityparts.LifePart;
 import dk.sdu.student.miger20.common.data.entityparts.PositionPart;
-import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
+import dk.sdu.student.miger20.common.services.IEntityPostProcessingService;
 
-public class CollisionDetector implements IPostEntityProcessingService {
+public class CollisionDetector implements IEntityPostProcessingService {
 
 
     @Override

@@ -3,7 +3,7 @@ package dk.sdu.student.miger20.common.services;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
 
-public interface IPostEntityProcessingService  {
+public interface IEntityPostProcessingService {
 
     /**
      * Pre-condition: The game has looped once since last call. All entities has been processed.

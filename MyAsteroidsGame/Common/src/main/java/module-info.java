@@ -1,7 +1,7 @@
 import dk.sdu.student.miger20.common.services.IBulletCreate;
 import dk.sdu.student.miger20.common.services.IGamePluginService;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
-import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
+import dk.sdu.student.miger20.common.services.IEntityPostProcessingService;
 
 module Common {
 	exports dk.sdu.student.miger20.common.services;
@@ -12,5 +12,5 @@ module Common {
 	uses IBulletCreate;
 	uses IGamePluginService;
 	uses IEntityProcessingService;
-	uses IPostEntityProcessingService;
+	uses IEntityPostProcessingService;
 }

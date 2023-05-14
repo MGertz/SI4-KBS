@@ -1,4 +1,4 @@
-import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
+import dk.sdu.student.miger20.common.services.IEntityPostProcessingService;
 
 module Collision {
 	requires Common;
@@ -7,5 +7,5 @@ module Collision {
 //	requires Player;
 //	requires Enemy;
 
-	provides IPostEntityProcessingService with dk.sdu.student.miger20.collision.CollisionDetector;
+	provides IEntityPostProcessingService with dk.sdu.student.miger20.collision.CollisionDetector;
 }

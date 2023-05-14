@@ -1,6 +1,6 @@
 import dk.sdu.student.miger20.common.services.IGamePluginService;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
-import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
+import dk.sdu.student.miger20.common.services.IEntityPostProcessingService;
 
 module Core {
 	requires java.desktop;
@@ -10,7 +10,7 @@ module Core {
 
 	uses IGamePluginService;
 	uses IEntityProcessingService;
-	uses IPostEntityProcessingService;
+	uses IEntityPostProcessingService;
 
 	exports dk.sdu.student.miger20.components;
 	exports dk.sdu.student.miger20.main;

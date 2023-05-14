@@ -9,7 +9,7 @@ import dk.sdu.student.miger20.common.data.Entity;
 import dk.sdu.student.miger20.common.data.GameData;
 import dk.sdu.student.miger20.common.data.World;
 import dk.sdu.student.miger20.common.services.IEntityProcessingService;
-import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
+import dk.sdu.student.miger20.common.services.IEntityPostProcessingService;
 import dk.sdu.student.miger20.common.util.SPILocator;
 import dk.sdu.student.miger20.components.IProcessor;
 import dk.sdu.student.miger20.components.PluginInjection;
@@ -49,7 +49,13 @@ public class Game implements ApplicationListener {
 
         Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
-        ((PluginInjection) components.getBean("pluginInjector")).startPlugins(gameData, world);
+        PluginInjection pluginInjection = components.getBean(PluginInjection.class);
+        pluginInjection.startPlugins(gameData, world);
+
+//        PluginInjection pluginInjection = (PluginInjection) components.getBean("pluginInjector");
+//        pluginInjection.startPlugins(gameData, world);
+
+//        ((PluginInjection) components.getBean("pluginInjector")).startPlugins(gameData, world);
     }
 
     @Override
@@ -102,11 +108,11 @@ public class Game implements ApplicationListener {
     }
 
     /**
-     * Find all IPostEntityProcessingServices
+     * Find all IEntityPostProcessingServices
      * @return Collection
      */
-    private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
-        return SPILocator.locateAll(IPostEntityProcessingService.class);
+    private Collection<? extends IEntityPostProcessingService> getPostEntityProcessingServices() {
+        return SPILocator.locateAll(IEntityPostProcessingService.class);
     }
 
     @Override
