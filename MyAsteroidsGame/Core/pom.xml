@@ -4,12 +4,12 @@
     <parent>
         <groupId>dk.sdu.student.miger20</groupId>
         <artifactId>MyAsteroidsGame</artifactId>
-        <version>4-JpmsLab</version>
+        <version>7-TestLab</version>
     </parent>
 
     <artifactId>Core</artifactId>
     <packaging>jar</packaging>
-    <version>4-JpmsLab</version>
+    <version>7-TestLab</version>
     <name>Core</name>
 
     <build>
