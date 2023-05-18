@@ -4,11 +4,11 @@
     <parent>
         <groupId>dk.sdu.student.miger20</groupId>
         <artifactId>MyAsteroidsGame</artifactId>
-        <version>4-JpmsLab</version>
+        <version>6-SpringLab</version>
     </parent>
 
     <artifactId>Common</artifactId>
     <packaging>jar</packaging>
-    <version>4-JpmsLab</version>
+    <version>6-SpringLab</version>
     <name>Common</name>
 </project>
