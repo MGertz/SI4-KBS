@@ -12,7 +12,7 @@ import dk.sdu.student.miger20.common.services.IEntityProcessingService;
 import dk.sdu.student.miger20.common.services.IPostEntityProcessingService;
 import dk.sdu.student.miger20.common.util.SPILocator;
 import dk.sdu.student.miger20.components.IProcessor;
-import dk.sdu.student.miger20.components.PluginInjection;
+import dk.sdu.student.miger20.components.IGameEntityPluginServiceInjection;
 import dk.sdu.student.miger20.managers.GameInputProcessor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public class Game implements ApplicationListener {
     private final GameData gameData = new GameData();
     private final World world = new World();
 
-    private AnnotationConfigApplicationContext components;
+    private final AnnotationConfigApplicationContext components;
 
     public Game() {
         this.components = new AnnotationConfigApplicationContext();
@@ -49,7 +49,7 @@ public class Game implements ApplicationListener {
 
         Gdx.input.setInputProcessor(new GameInputProcessor(gameData));
 
-        ((PluginInjection) components.getBean("pluginInjector")).startPlugins(gameData, world);
+        ((IGameEntityPluginServiceInjection) components.getBean("IGameEntityPluginServiceInjection")).startPlugins(gameData, world);
     }
 
     @Override
@@ -69,8 +69,8 @@ public class Game implements ApplicationListener {
     }
 
     private void update() {
-        ((IProcessor) components.getBean("processorInjector")).process(gameData, world);
-        ((IProcessor) components.getBean("postProcessorInjector")).process(gameData, world);
+        ((IProcessor) components.getBean("IEntityProcessingServiceInjection")).process(gameData, world);
+        ((IProcessor) components.getBean("IEntityPostProcessingServiceInjection")).process(gameData, world);
     }
 
     private void draw() {
