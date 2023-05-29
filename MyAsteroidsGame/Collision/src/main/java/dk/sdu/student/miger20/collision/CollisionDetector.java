@@ -21,16 +21,48 @@ public class CollisionDetector implements IPostEntityProcessingService {
                     continue;
                 }
 
+                String entity1ClassName = entity1.getClass().getName();
+                String entity2ClassName = entity2.getClass().getName();
+
+                String[] entity1ClassNameArr = entity1ClassName.split("\\.");
+                String[] entity2ClassNameArr = entity2ClassName.split("\\.");
+
+                String entity1Name = entity1ClassNameArr[entity1ClassNameArr.length - 1];
+                String entity2Name = entity2ClassNameArr[entity2ClassNameArr.length - 1];
+
                 LifePart entity1Life = entity1.getPart(LifePart.class);
                 LifePart entity2Life = entity2.getPart(LifePart.class);
 
-                if (
-                    entity1.getClass() != entity2.getClass()
-                    && this.collides(entity1, entity2)
-                ) {
-                    System.out.println("----==== Collision ====----");
-                    System.out.println(entity1.getClass());
-                    System.out.println(entity2.getClass());
+                // Player collide with Asteroid
+                if (entity1Name.equals("Player") && entity2Name.equals("Asteroid") && collides(entity1, entity2) ) {
+                    entity1Life.setIsHit(true);
+                }
+
+                // Enemy collided with Asteroid
+                if (entity1Name.equals("Enemy") && entity2Name.equals("Asteroid") && collides(entity1, entity2) ) {
+                    entity1Life.setIsHit(true);
+                }
+
+                // if ASteroid shot at
+                if (entity1Name.equals("Asteroid") && entity2Name.equals("Bullet") && collides(entity1, entity2) ) {
+                    entity1Life.setIsHit(true);
+                    entity2Life.setIsHit(true);
+                }
+
+                // Player and Enemy collide
+                if (entity1Name.equals("Player") && entity2Name.equals("Enemy") && collides(entity1, entity2) ) {
+                    entity1Life.setIsHit(true);
+                    entity2Life.setIsHit(true);
+                }
+
+                // Player shot by bullet
+                if (entity1Name.equals("Player") && entity2Name.equals("Bullet") && collides(entity1, entity2) ) {
+//                    entity1Life.setIsHit(true);
+//                    entity2Life.setIsHit(true);
+                }
+
+                // Enemy shot by bullet
+                if (entity1Name.equals("Enemy") && entity2Name.equals("Bullet") && collides(entity1, entity2) ) {
                     entity1Life.setIsHit(true);
                     entity2Life.setIsHit(true);
                 }
