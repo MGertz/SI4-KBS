@@ -6,8 +6,12 @@ module Core {
 	requires java.desktop;
 	requires com.badlogic.gdx;
 	requires Common;
+	requires spring.context;
 
 	uses IGamePluginService;
 	uses IEntityProcessingService;
 	uses IPostEntityProcessingService;
+
+	exports dk.sdu.student.miger20.components;
+	exports dk.sdu.student.miger20.main;
 }
